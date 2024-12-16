@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبيان لمشروع ٢/٢ عن الذكاء الاصطناعي</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #3c6e8f, #a6c7db, #f5e9dc); /* Slightly lighter colors */
+            color: #000; /* Jet black text */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh; /* Allow scrolling */
+            position: relative;
+            overflow: auto; /* Allow scrolling */
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            margin-bottom: 2rem; /* Added margin-bottom for spacing between boxes */
+        }
+
+        .robot {
+            font-size: 4rem;
+            margin: 2rem 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+
+        label {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: #4a688a;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 1rem;
+            border: 2px solid #d8ecf4;
+            border-radius: 10px;
+            padding: 0.5rem;
+            resize: none;
+            font-size: 1rem;
+        }
+
+        .smiley-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 1.5rem 0;
+        }
+
+        .smiley {
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .smiley:hover {
+            transform: scale(1.2);
+            color: #4a688a;
+        }
+
+        .scale {
+            margin-top: 1rem;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, green, yellow, red);
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .scale span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #4a688a;
+            width: 0;
+        }
+
+        .quiz-container {
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            color: #333;
+            display: none;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            margin-bottom: 2rem; /* Added margin-bottom for spacing between boxes */
+        }
+
+        .quiz-button {
+            background-color: #4a688a;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 1rem; /* Added margin for spacing */
+        }
+
+        .quiz-button:hover {
+            background-color: #3b5173;
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Floating binary language effect */
+        .binary-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;background: url('https://www.clipartmax.com/png/small/170-1708261_binary-code-background.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.05;
+            pointer-events: none;
+            animation: binary-animation 10s infinite;
+        }
+
+        @keyframes binary-animation {
+            0% { opacity: 0.05; }
+            50% { opacity: 0.1; }
+            100% { opacity: 0.05; }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .robot {
+                font-size: 3rem;
+            }
+        }
+
+    </style>
+    <script>
+        // Handling form submission
+        function handleFormSubmit(event) {
+            event.preventDefault(); 
+            alert('شكرًا لمشاركتك رأيك!');
+        }
+
+        // Start AI quiz
+        function startQuiz() {
+            document.querySelector(".quiz-container").style.display = "block";
+            document.querySelector(".quiz-button").style.display = "none";
+        }
+
+        // Quiz submission handling
+        function checkAnswer() {
+            const userAnswer = document.querySelector('input[name="ai-quiz"]:checked').value;
+            const quizContainer = document.querySelector('.quiz-container');
+            
+            if (userAnswer === "correct") {
+                quizContainer.innerHTML = `
+                    <h2>عمل رائع! 👏</h2>
+                    <p>إجابة صحيحة! أحسنت!</p>
+                    <button class="quiz-button" onclick="startQuiz()">ابدأ اختبار الذكاء الاصطناعي</button>
+                `;
+            } else {
+                quizContainer.innerHTML = `
+                    <h2>إجابة خاطئة! حاول مرة أخرى.</h2>
+                    <p>حظا طيبا في المرة القادمة!</p>
+                    <button class="quiz-button" onclick="startQuiz()">ابدأ اختبار الذكاء الاصطناعي</button>
+                `;
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Binary background effect -->
+    <div class="binary-background"></div>
+
+    <div class="container">
+        <!-- Floating Robot Emoji -->
+        <div class="robot">🤖</div>
+        
+        <h1>شاركينا رأيك عن المشروع</h1>
+        <p>
+            الذكاء الاصطناعي هو تقنية تُحاكي الذكاء البشري، وتُستخدم لتمكين الآلات من التفكير والتصرف بذكاء.
+            بدأ هذا المجال في منتصف القرن العشرين وشهد تطورات هائلة، وصولًا إلى تطبيقات حديثة مثل روبوتات المحادثة.
+        </p>
+        <form onsubmit="handleFormSubmit(event)">
+            <label for="opinion">ما رأيك في المشروع؟</label>
+            <textarea id="opinion" name="opinion" placeholder="اكتبي رأيك هنا..." required></textarea>
+            
+            <label>كيف تشعرين حول هذا الموضوع؟</label>
+            <div class="smiley-container">
+                <span class="smiley" title="سعيدة جدًا">&#128513;</span>
+                <span class="smiley" title="سعيدة">&#128578;</span>
+                <span class="smiley" title="محايدة">&#128528;</span>
+                <span class="smiley" title="حزينة">&#128577;</span>
+                <span class="smiley" title="حزينة جدًا">&#128542;</span>
+            </div>
+
+            <!-- Scale under smiley faces -->
+            <div class="scale">
+                <span></span>
+            </div>
+
+            <button type="submit">إرسال</button>
+        </form>
+    </div>
+
+    <!-- AI Information Box -->
+    <div class="container">
+        <h2>معلومات عن الذكاء الاصطناعي:</h2>
+        <p>
+            الذكاء الاصطناعي هو فرع من علوم الكمبيوتر الذي يهتم بتطوير أنظمة قادرة على محاكاة الذكاء البشري. يمكن لهذه الأنظمة أن تقوم بمهمات مثل التعرف على الصوت، الصور، والتفاعل مع البشر بطريقة ذكية.
+        </p>
+        <p>
+            تشمل تطبيقات الذكاء الاصطناعي العديد من المجالات مثل الروبوتات، الرؤية الحاسوبية، معالجة اللغة الطبيعية، والذكاء الاصطناعي في السيارات.
+        </p>
+        <p>الذكاء الاصطناعي يعزز قدرة الآلات على اتخاذ القرارات وتحليل البيانات بشكل أكثر دقة وفعالية مقارنة بالبشر في بعض الحالات.
+        </p>
+        <p>
+            كما أن الذكاء الاصطناعي أصبح جزءًا أساسيًا في العديد من الصناعات مثل الصحة، التعليم، والتجارة الإلكترونية.
+        </p>
+    </div>
+
+    <!-- AI Quiz -->
+    <div class="quiz-container">
+        <h2>اختبار الذكاء الاصطناعي:</h2>
+        <p>ما هو الذكاء الاصطناعي؟</p>
+        <input type="radio" id="answer1" name="ai-quiz" value="incorrect">
+        <label for="answer1">الذكاء الاصطناعي هو محاكاة للذكاء البشري باستخدام تقنيات البرمجة التقليدية.</label><br>
+        <input type="radio" id="answer2" name="ai-quiz" value="correct">
+        <label for="answer2">الذكاء الاصطناعي هو أنظمة قادرة على تعلم وتحليل البيانات بشكل مشابه للذكاء البشري.</label><br>
+        <input type="radio" id="answer3" name="ai-quiz" value="incorrect">
+        <label for="answer3">الذكاء الاصطناعي هو جهاز مادي فقط لا يعمل بتقنيات ذكية.</label><br>
+
+        <button class="quiz-button" onclick="checkAnswer()">إرسال الإجابة</button>
+    </div>
+
+    <!-- Start AI Quiz Button -->
+    <div>
+        <button class="quiz-button" onclick="startQuiz()">ابدأ اختبار الذكاء الاصطناعي</button>
+    </div>
+
+    <footer>
+        &copy; 2024 مشروع ٢/٢ - جميع الحقوق محفوظة.
+    </footer>
+</body>
+</html>
